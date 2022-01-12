@@ -18,6 +18,9 @@ const typeDefs = gql`
   type Query {
     books: [Book]
   }
+  type Mutation {
+    addBook(title: String, author: String): Book
+  }
 `;
 
 const books = [
@@ -37,6 +40,16 @@ const resolvers = {
     Query: {
       books: () => books,
     },
+    Mutation: {
+      addBook: (_parent,args) => {
+        const book = {
+          title: args.title,
+          author: args.author
+        }
+        books.push(book);
+        return book;
+      }
+    }
   };
   
 
